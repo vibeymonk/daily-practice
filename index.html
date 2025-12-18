@@ -39,23 +39,21 @@
   }
 
   // Increase when button is clicked
-  incBtn.addEventListener("click", function (event) {
-    event.stopPropagation(); // ⛔ prevent document click
+  incBtn.addEventListener("click", function () {
     count++;
     updateDisplay();
   });
 
-  // Prevent clicks inside the box from reducing
-  counterBox.addEventListener("click", function (event) {
-    event.stopPropagation(); // ⛔ stop bubbling
-  });
-
-  // Decrease when clicking anywhere else
-  document.addEventListener("click", function () {
-    count--;
-    updateDisplay();
+  // Global click handler
+  document.addEventListener("click", function (event) {
+    // If click happened OUTSIDE the counter box
+    if (!counterBox.contains(event.target)) {
+      count--;
+      updateDisplay();
+    }
   });
 </script>
+
 
 
 </body>
