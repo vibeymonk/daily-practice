@@ -21,17 +21,42 @@
 </head>
 <body>
 
+<div id="counter-box">
   <div id="count">0</div>
-  <button onclick="increaseCount()">Click me</button>
+  <button id="incBtn">Click me</button>
+</div>
 
-  <script>
-    let count = 0;
 
-    function increaseCount() {
-      count = count + 1;
-      document.getElementById("count").innerText = count;
-    }
-  </script>
+<script>
+  let count = 0;
+
+  const countDisplay = document.getElementById("count");
+  const counterBox = document.getElementById("counter-box");
+  const incBtn = document.getElementById("incBtn");
+
+  function updateDisplay() {
+    countDisplay.innerText = count;
+  }
+
+  // Increase when button is clicked
+  incBtn.addEventListener("click", function (event) {
+    event.stopPropagation(); // ⛔ prevent document click
+    count++;
+    updateDisplay();
+  });
+
+  // Prevent clicks inside the box from reducing
+  counterBox.addEventListener("click", function (event) {
+    event.stopPropagation(); // ⛔ stop bubbling
+  });
+
+  // Decrease when clicking anywhere else
+  document.addEventListener("click", function () {
+    count--;
+    updateDisplay();
+  });
+</script>
+
 
 </body>
 </html>
